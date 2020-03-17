@@ -44,19 +44,19 @@ class App extends React.Component {
       .then(res => this.setState({ user: res }))
       .catch(err => console.log('Error Occurred:', err))
     // api call to my followers
-    // fetch(`https://api.github.com/users/${this.state.searchedUser}/followers`)
-    //   .then(res => res.json())
-    //   .then(res =>
-    //     res.map(user =>
+    fetch(`https://api.github.com/users/${this.state.searchedUser}/followers`)
+      .then(res => res.json())
+      .then(res =>
+        res.map(user =>
     //       // api call that fetches my followers account information
-    //       fetch(`https://api.github.com/users/${user.login}`)
-    //         .then(res => res.json())
-    //         .then(res => this.setState({
-    //           followers: [...this.state.followers, res]
-    //         }))
-    //     )
-    //   )
-    //   .catch(err => console.log('Followers Error: ', err))
+          fetch(`https://api.github.com/users/${user.login}`)
+            .then(res => res.json())
+            .then(res => this.setState({
+              followers: [...this.state.followers, res]
+            }))
+        )
+      )
+      .catch(err => console.log('Followers Error: ', err))
   }
 
   handleChanges = e => {
